@@ -10,7 +10,7 @@ st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def load_mapping():
-    df = pd.read_csv("district_mapping.csv")
+    df = pd.read_csv("district_WB.csv")
     return df
 
 def filter_column(df, col, value):
@@ -40,8 +40,8 @@ rename_mapping = {
     'fee_type' : 'Fees'
     }
 
-st.title('CoWIN Vaccination Slot Availability')
-st.info('The CoWIN APIs are geo-fenced so sometimes you may not see an output! Please try after sometime ')
+st.title('Covid Vaccination Slot West Bengal')
+st.info('by Sen ')
 
 # numdays = st.sidebar.slider('Select Date Range', 0, 100, 10)
 unique_districts = list(mapping_df["district name"].unique())
@@ -49,7 +49,7 @@ unique_districts.sort()
 
 left_column_1, right_column_1 = st.beta_columns(2)
 with left_column_1:
-    numdays = st.slider('Select Date Range', 0, 100, 5)
+    numdays = st.slider('Select Date Range', 0, 30, 1)
 
 with right_column_1:
     dist_inp = st.selectbox('Select District', unique_districts)
@@ -62,7 +62,7 @@ date_str = [x.strftime("%d-%m-%Y") for x in date_list]
 
 final_df = None
 for INP_DATE in date_str:
-    URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={}&date={}".format(DIST_ID, INP_DATE)
+    URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id={}&date={}".format(DIST_ID, INP_DATE)
     response = requests.get(URL)
     if (response.ok) and ('centers' in json.loads(response.text)):
         resp_json = json.loads(response.text)['centers']
@@ -119,4 +119,4 @@ if (final_df is not None) and (len(final_df)):
 else:
     st.error("Unable to fetch data currently, please try after sometime")
 
-st.markdown("_- Bhavesh Bhatt_")
+st.markdown("_-Sen)
