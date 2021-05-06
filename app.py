@@ -45,7 +45,7 @@ st.info('by Sen ')
 
 # numdays = st.sidebar.slider('Select Date Range', 0, 100, 10)
 unique_districts = list(mapping_df["district name"].unique())
-unique_districts.sort()
+
 
 left_column_1, right_column_1 = st.beta_columns(2)
 with left_column_1:
@@ -62,8 +62,9 @@ date_str = [x.strftime("%d-%m-%Y") for x in date_list]
 
 final_df = None
 for INP_DATE in date_str:
-    URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id={}&date={}".format(DIST_ID, INP_DATE)
-    response = requests.get(URL)
+    
+    URl = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id={}&date={}".format(DIST_ID, INP_DATE)
+    response = requests.get(URl)
     print(response)
     if (response.ok) and ('centers' in json.loads(response.text)):
         resp_json = json.loads(response.text)['centers']
