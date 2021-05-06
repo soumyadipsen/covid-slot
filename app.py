@@ -119,4 +119,4 @@ if (final_df is not None) and (len(final_df)):
 else:
     st.error("Unable to fetch data currently, please try after sometime")
 
-st.markdown("_-Sen)
+st.markdown("_-Sen")
